@@ -1,5 +1,3 @@
-import { compose } from "redux"
-
 const reducer = (state = null, action) => {
   switch (action.type) {
     case 'NOTIFY':
