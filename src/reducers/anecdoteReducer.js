@@ -18,7 +18,7 @@ const reducer = (state = [], action) => {
   }
 }
 
-const initialize = (anecdotes) => {
+const initialize = () => {
   return async dispatch => {
     const data = await service.getAll()
     dispatch({
