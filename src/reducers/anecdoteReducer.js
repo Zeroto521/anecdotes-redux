@@ -9,8 +9,8 @@ const anecdotesAtStart = [
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
-const asObject = (anecdote) => ({
-  'content': anecdote,
+const asObject = (content) => ({
+  'content': content,
   'id': getId(),
   'votes': 0
 })
@@ -32,5 +32,15 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-export { asObject }
+const create = (content) => ({
+  'type': 'NEW',
+  'data': asObject(content)
+})
+
+const vote = (id) => ({
+  'type': 'VOTE',
+  'data': { id }
+})
+
+export { create, vote }
 export default reducer
