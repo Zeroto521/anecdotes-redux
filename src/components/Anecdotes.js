@@ -18,8 +18,17 @@ const Anecdote = ({ anecdote, handleClick }) => (
 
 
 const Anecdotes = () => {
-  const anecdotes = useSelector(state => state.anecdotes)
   const dispatch = useDispatch()
+
+  const anecdotes = useSelector(({ filter, anecdotes }) => {
+    let res = anecdotes
+    if (filter) {
+      res = anecdotes.filter(anecdote =>
+        anecdote.content.includes(filter))
+    }
+
+    return res
+  })
 
   const handleVote = (anecdote) => {
     dispatch(vote(anecdote.id))
