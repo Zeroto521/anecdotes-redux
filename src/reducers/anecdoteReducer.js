@@ -1,3 +1,6 @@
+import service from '../services/anecdotes'
+
+
 const reducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT':
@@ -16,16 +19,24 @@ const reducer = (state = [], action) => {
 }
 
 const initialize = (anecdotes) => {
-  return {
-    type: 'INIT',
-    data: anecdotes,
+  return async dispatch => {
+    const data = await service.getAll()
+    dispatch({
+      'type': 'INIT',
+      data,
+    })
   }
 }
 
-const create = (data) => ({
-  'type': 'NEW',
-  data
-})
+const create = (content) => {
+  return async dispatch => {
+    const data = await service.createNew(content)
+    dispatch({
+      'type': 'NEW',
+      data
+    })
+  }
+}
 
 const vote = (id) => ({
   'type': 'VOTE',

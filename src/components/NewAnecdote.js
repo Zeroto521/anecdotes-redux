@@ -12,9 +12,8 @@ const NewAnecdote = () => {
     event.preventDefault()
     const content = event.target.content.value
     event.target.content.value = ''
-    const newAnecdote = await service.createNew(content)
-    dispatch(create(newAnecdote))
-    dispatch(notify(`You created '${newAnecdote.content}'`))
+    dispatch(create(content))
+    dispatch(notify(`You created '${content}'`))
     setTimeout(() => dispatch(mute()), 3000)
   }
 
