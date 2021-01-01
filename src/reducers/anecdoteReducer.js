@@ -9,9 +9,8 @@ const reducer = (state = [], action) => {
       return [...state, action.data]
     case 'VOTE':
       const id = action.data.id
-      const newState = state.map(as =>
-        as.id !== id ? as : { ...as, 'votes': as.votes + 1 }
-      )
+      const filterState = state.filter(as => as.id !== id)
+      const newState = [...filterState, action.data]
       return newState.sort((a, b) => b.votes - a.votes)
     default:
       return state
@@ -38,10 +37,15 @@ const create = (content) => {
   }
 }
 
-const vote = (id) => ({
-  'type': 'VOTE',
-  'data': { id }
-})
+const vote = (anecdote) => {
+  return async dispatch => {
+    const data = await service.updateVotes(anecdote)
+    dispatch({
+      'type': 'VOTE',
+      data
+    })
+  }
+}
 
 export { create, vote, initialize }
 export default reducer
