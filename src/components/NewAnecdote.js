@@ -3,7 +3,6 @@ import React from 'react'
 
 import { create } from '../reducers/anecdoteReducer'
 import { notify, mute } from '../reducers/notificationReducer'
-import service from '../services/anecdotes'
 
 const NewAnecdote = () => {
   const dispatch = useDispatch()
