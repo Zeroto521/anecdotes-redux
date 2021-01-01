@@ -1,3 +1,5 @@
+import { compose } from "redux"
+
 const reducer = (state = null, action) => {
   switch (action.type) {
     case 'NOTIFY':
@@ -9,14 +11,24 @@ const reducer = (state = null, action) => {
   }
 }
 
-const notify = (message) => ({
+const setNotification = (message) => ({
   'type': 'NOTIFY',
   'data': { message }
 })
 
-const mute = () => ({
+const clearNotification = () => ({
   'type': 'MUTE'
 })
 
-export { notify, mute }
+const notify = (message, timer = 3) => {
+  return async dispatch => {
+    await dispatch(setNotification(message))
+    setTimeout(
+      async () => await dispatch(clearNotification()),
+      timer * 1000
+    )
+  }
+}
+
+export { notify }
 export default reducer
